@@ -9,3 +9,20 @@
     import 'relative/path/to/stylesheet.scss';
 
 */
+/* Oculta el icono de eliminar por defecto */
+.delete-icon {
+	visibility: hidden;
+	cursor: pointer;
+	font-size: 18px;
+}
+
+/* Muestra el icono SOLO cuando pasas el ratón por la tarea */
+.todo-item:hover .delete-icon {
+	visibility: visible;
+}
+
+/* Pequeño efecto visual al pasar el ratón */
+.todo-item:hover {
+	background-color: #f8f9fa;
+}
+

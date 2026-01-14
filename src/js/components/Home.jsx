@@ -1,26 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
-
-//create your first component
 const Home = () => {
-	return (
-		<div className="text-center">
-            
 
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
+	const [inputValue, setInputValue] = useState("");
+	const [todos, setTodos] = useState([]);
+
+	const handleChange = (e) => {
+		setInputValue(e.target.value);
+	};
+
+	const handleKeyDown = (e) => {
+		if (e.key === "Enter" && inputValue.trim() !== "") {
+			setTodos([...todos, inputValue]);
+			setInputValue("");
+		}
+	};
+
+	const deleteTodo = (index) => {
+		const newTodos = todos.filter((todo, i) => i !== index);
+		setTodos(newTodos);
+	};
+
+	return (
+		<div className="container mt-5">
+			<h1 className="text-center">Todo List React</h1>
+
+			<input
+				type="text"
+				className="form-control mt-3"
+				placeholder="Añade una tarea y presiona Enter"
+				value={inputValue}
+				onChange={handleChange}
+				onKeyDown={handleKeyDown}
+			/>
+
+			<ul className="list-group mt-3">
+				{todos.length === 0 ? (
+					<li className="list-group-item text-center">
+						No hay tareas, añadir tareas
+					</li>
+				) : (
+					todos.map((todo, index) => (
+						<li
+							key={index}
+							className="list-group-item d-flex justify-content-between align-items-center todo-item"
+						>
+							{todo}
+							<span
+								className="delete-icon"
+								onClick={() => deleteTodo(index)}
+							>
+								🗑️
+							</span>
+						</li>
+					))
+				)}
+			</ul>
 		</div>
 	);
 };
